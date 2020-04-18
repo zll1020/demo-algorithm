@@ -27,6 +27,7 @@ public class FibonacciNumber {
 
     /**
      * 简易实现
+     * 时间复杂度：2^0+2^1+2^2... = 2^n-1 = 1/2 * 2^n -1  O(2^n)  --fib1执行了多少次？
      * @param n
      * @return
      */
@@ -40,6 +41,7 @@ public class FibonacciNumber {
 
     /**
      * 改进
+     * 时间复杂度：O(n)
      * @param n
      * @return
      */
@@ -53,6 +55,25 @@ public class FibonacciNumber {
             int sum = first + second;
             first = second;
             second = sum;
+        }
+        return second;
+    }
+
+    /**
+     * 改进
+     * 时间复杂度：O(n)
+     * @param n
+     * @return
+     */
+    private static int fib3(int n) {
+        if (n <= 1){
+            return n;
+        }
+        int first = 0;
+        int second = 1;
+        for (int i = 0 ; i < n-1 ; i++){
+            second += first;
+            first = second - first;
         }
         return second;
     }
