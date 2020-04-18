@@ -10,7 +10,7 @@ public class Test {
     public static void main(String[] args) {
         //int[] list = new int[]{11,22,33};
 
-        MyArrayList arrayList = new MyArrayList();
+        MyArrayList<Integer> arrayList = new MyArrayList<>();
         arrayList.add(1);
         arrayList.add(2);
         arrayList.add(3);

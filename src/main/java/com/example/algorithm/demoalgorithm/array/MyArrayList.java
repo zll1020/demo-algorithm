@@ -8,7 +8,7 @@ import java.util.Arrays;
  * Date: 2020-04-18
  * Time: 11:52
  */
-public class MyArrayList {
+public class MyArrayList<E> {
 
     /**
      * 元素的数量
@@ -18,7 +18,7 @@ public class MyArrayList {
     /**
      * 所有元素
      */
-    private int[] elements;
+    private E[] elements;
 
     /**
      * 默认初始长度是10
@@ -34,7 +34,7 @@ public class MyArrayList {
     public MyArrayList(int size) {
         // 如果传进来的值小于默认值，使用默认值
         size = size < DEFAULT_CAPACITY ? DEFAULT_CAPACITY : size;
-        this.elements = new int[size];
+        this.elements = (E[])new Object[size];
     }
 
     /**
@@ -42,7 +42,7 @@ public class MyArrayList {
      * @param index
      * @return
      */
-    public int get (int index){
+    public E get (int index){
         rangeChange(index);
         return elements[index];
     }
@@ -53,9 +53,9 @@ public class MyArrayList {
      * @param element
      * @return 原来的元素
      */
-    public int set(int index , int element){
+    public E set(int index , E element){
         rangeChange(index);
-        int old = elements[index];
+        E old = elements[index];
         elements[index] = element;
         return old;
     }
@@ -81,9 +81,9 @@ public class MyArrayList {
      * @param element
      * @return
      */
-    public int indexOf(int element){
+    public int indexOf(E element){
         for (int i = 0 ; i< size ;i++){
-            if (elements[i] == element){
+            if (elements[i].equals(element)){
                 return i;
             }
         }
@@ -94,7 +94,7 @@ public class MyArrayList {
      * 判断是否包含该元素
      * @return
      */
-    public boolean contains(int element){
+    public boolean contains(E element){
         return indexOf(element) != ELEMENT_NOT_FOUND;
     }
 
@@ -102,7 +102,7 @@ public class MyArrayList {
      * 添加元素
      * @param element
      */
-    public void add(int element){
+    public void add(E element){
         add(size,element);
     }
 
@@ -112,7 +112,7 @@ public class MyArrayList {
      * @param
      * @param element
      */
-    public void add(int index ,int element){
+    public void add(int index ,E element){
         rangeCheckForAdd(index);
 
         // 确保容量
@@ -138,7 +138,7 @@ public class MyArrayList {
             // 新容量为旧容量的1.5倍
             int newCapacity = oldCapacity + oldCapacity >> 1;
             // 新建数组，将原有值转移到新数组
-            int[] newElements = new int[newCapacity];
+            E[] newElements = (E[])new Object[newCapacity];
             for (int i = 0 ;i < size ;i++){
                 newElements[i] = elements[i];
             }
@@ -169,9 +169,9 @@ public class MyArrayList {
      * @param index
      * @return 移除的元素
      */
-    public int remove(int index){
+    public E remove(int index){
         rangeChange(index);
-        int old = elements[index];
+        E old = elements[index];
         for (int i = index+1 ; i< size ;i++){
             elements[i-1] = elements[i];
         }
