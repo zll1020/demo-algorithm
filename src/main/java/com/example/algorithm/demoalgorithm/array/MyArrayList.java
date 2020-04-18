@@ -184,7 +184,10 @@ public class MyArrayList<E> {
      * size=0,别人 get 就拿不到之前的元素了
      * 清掉浪费性能，又要垃圾回收，又需要重新创建
      */
-    public void clean(){
+    public void clear(){
+        for (int i = 0 ;i< size ;i++){
+            elements[i] = null;
+        }
         size = 0;
     }
 
