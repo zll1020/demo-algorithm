@@ -114,31 +114,51 @@ public class MyArrayList {
      */
     public void add(int index ,int element){
         rangeCheckForAdd(index);
+
+        // 确保容量
+        ensureCapacity(size + 1);
+
         for (int i = size-1 ; i>= index ;i--){
             elements[i+1] = elements[i];
         }
         elements[index] = element;
         size++;
-        // 判断空间 80%
-        if (size < DEFAULT_CAPACITY){
 
-        }
-        // 扩容
-        // 新建一个数组，把原有的值赋值
     }
 
-    public void outOfBounds(int index){
+    /**
+     * 判断容量及扩容
+     * @param capacity
+     */
+    private void ensureCapacity(int capacity) {
+        int oldCapacity = elements.length;
+        if (oldCapacity >= capacity){
+            return;
+        }else {
+            // 新容量为旧容量的1.5倍
+            int newCapacity = oldCapacity + oldCapacity >> 1;
+            // 新建数组，将原有值转移到新数组
+            int[] newElements = new int[newCapacity];
+            for (int i = 0 ;i < size ;i++){
+                newElements[i] = elements[i];
+            }
+            // 指向新数组
+            elements = newElements;
+        }
+    }
+
+    private void outOfBounds(int index){
         throw new IndexOutOfBoundsException("index:" + index + ", size:" + size);
     }
 
 
-    public void rangeChange(int index){
+    private void rangeChange(int index){
         if (index < 0 || index >= size){
             outOfBounds(index);
         }
     }
 
-    public void rangeCheckForAdd(int index){
+    private void rangeCheckForAdd(int index){
         if (index < 0 || index > size){
             outOfBounds(index);
         }
