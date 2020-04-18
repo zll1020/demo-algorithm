@@ -82,9 +82,17 @@ public class MyArrayList<E> {
      * @return
      */
     public int indexOf(E element){
-        for (int i = 0 ; i< size ;i++){
-            if (elements[i].equals(element)){
-                return i;
+        if (element == null){
+            for (int i = 0 ; i< size ;i++){
+                if (elements[i] == null){
+                    return i;
+                }
+            }
+        }else {
+            for (int i = 0 ; i< size ;i++){
+                if (element.equals(elements[i])){
+                    return i;
+                }
             }
         }
         return ELEMENT_NOT_FOUND;
@@ -118,9 +126,11 @@ public class MyArrayList<E> {
         // 确保容量
         ensureCapacity(size + 1);
 
-        for (int i = size-1 ; i>= index ;i--){
+        /*for (int i = size-1 ; i>= index ;i--){
             elements[i+1] = elements[i];
-        }
+        }*/
+        // 移动元素
+        System.arraycopy(elements,index,elements,index+1,size-index);
         elements[index] = element;
         size++;
 
@@ -175,8 +185,12 @@ public class MyArrayList<E> {
         for (int i = index+1 ; i< size ;i++){
             elements[i-1] = elements[i];
         }
-        size--;
+        elements[--size] = null;
         return old;
+    }
+
+    public void remove(E element){
+        remove(indexOf(element));
     }
 
     /**
