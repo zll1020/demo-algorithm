@@ -136,8 +136,30 @@ public class MyArrayList<E> extends MyAbstractList<E>{
         for (int i = index+1 ; i< size ;i++){
             elements[i-1] = elements[i];
         }
+
+        // 缩容
+        trim();
         elements[--size] = null;
         return old;
+    }
+
+    /**
+     * 当存储存储小于总容量的一半时，缩容
+     * 扩容的倍数与缩容的倍数不能相等，否则出现复杂度震荡
+     */
+    private void trim() {
+        int capacity = elements.length;
+        int newCapacity =  capacity>>1;
+        if (size >= newCapacity || capacity <= DEFAULT_CAPACITY){
+            return;
+        }
+
+        E[] newElements = (E[])new Object[newCapacity];
+        for (int i = 0 ;i < size ;i++){
+            newElements[i] = elements[i];
+        }
+        // 指向新数组
+        elements = newElements;
     }
 
 

@@ -21,6 +21,7 @@ public class _203_移除链表元素 {
      */
     public ListNode removeElements(ListNode head, int val) {
 
+        // 虚拟头节点
         ListNode newHead = new ListNode(-1);
         newHead.next = head;
 
