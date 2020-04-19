@@ -19,5 +19,16 @@ public class TestList {
         System.out.println(list.toString());
         list.add(2,40);
         System.out.println(list.toString());
+
+        MyList<Integer> twoWayLinkedList = new TwoWayLinkedList<>();
+        twoWayLinkedList.add(10);
+        twoWayLinkedList.add(20);
+        twoWayLinkedList.add(30);
+        //System.out.println(twoWayLinkedList.toString());
+        twoWayLinkedList.remove(2);
+        //System.out.println(twoWayLinkedList.toString());
+        twoWayLinkedList.add(2,40);
+        System.out.println(twoWayLinkedList.toString());
+        return;
     }
 }
