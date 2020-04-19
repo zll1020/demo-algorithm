@@ -8,12 +8,7 @@ import java.util.Arrays;
  * Date: 2020-04-18
  * Time: 11:52
  */
-public class MyArrayList<E> {
-
-    /**
-     * 元素的数量
-     */
-    private int size;
+public class MyArrayList<E> extends MyAbstractList<E>{
 
     /**
      * 所有元素
@@ -25,7 +20,6 @@ public class MyArrayList<E> {
      */
     private static final int DEFAULT_CAPACITY = 10;
 
-    private static final int ELEMENT_NOT_FOUND = -1;
 
     public MyArrayList() {
         this(DEFAULT_CAPACITY);
@@ -42,6 +36,7 @@ public class MyArrayList<E> {
      * @param index
      * @return
      */
+    @Override
     public E get (int index){
         rangeChange(index);
         return elements[index];
@@ -53,6 +48,7 @@ public class MyArrayList<E> {
      * @param element
      * @return 原来的元素
      */
+    @Override
     public E set(int index , E element){
         rangeChange(index);
         E old = elements[index];
@@ -60,27 +56,13 @@ public class MyArrayList<E> {
         return old;
     }
 
-    /**
-     * 获取数组的长度
-     * @return
-     */
-    public int size(){
-        return size;
-    }
-
-    /**
-     * 数组是否为空
-     * @return
-     */
-    public boolean isEmpty(){
-        return size == 0;
-    }
 
     /**
      * 获取元素的所在位置
      * @param element
      * @return
      */
+    @Override
     public int indexOf(E element){
         if (element == null){
             for (int i = 0 ; i< size ;i++){
@@ -98,28 +80,13 @@ public class MyArrayList<E> {
         return ELEMENT_NOT_FOUND;
     }
 
-    /**
-     * 判断是否包含该元素
-     * @return
-     */
-    public boolean contains(E element){
-        return indexOf(element) != ELEMENT_NOT_FOUND;
-    }
-
-    /**
-     * 添加元素
-     * @param element
-     */
-    public void add(E element){
-        add(size,element);
-    }
-
 
     /**
      * 在指定位置添加元素
      * @param
      * @param element
      */
+    @Override
     public void add(int index ,E element){
         rangeCheckForAdd(index);
 
@@ -157,28 +124,12 @@ public class MyArrayList<E> {
         }
     }
 
-    private void outOfBounds(int index){
-        throw new IndexOutOfBoundsException("index:" + index + ", size:" + size);
-    }
-
-
-    private void rangeChange(int index){
-        if (index < 0 || index >= size){
-            outOfBounds(index);
-        }
-    }
-
-    private void rangeCheckForAdd(int index){
-        if (index < 0 || index > size){
-            outOfBounds(index);
-        }
-    }
-
     /**
      * 移除某个位置的元素
      * @param index
      * @return 移除的元素
      */
+    @Override
     public E remove(int index){
         rangeChange(index);
         E old = elements[index];
@@ -189,15 +140,13 @@ public class MyArrayList<E> {
         return old;
     }
 
-    public void remove(E element){
-        remove(indexOf(element));
-    }
 
     /**
      * 清除数组内元素
      * size=0,别人 get 就拿不到之前的元素了
      * 清掉浪费性能，又要垃圾回收，又需要重新创建
      */
+    @Override
     public void clear(){
         for (int i = 0 ;i< size ;i++){
             elements[i] = null;
