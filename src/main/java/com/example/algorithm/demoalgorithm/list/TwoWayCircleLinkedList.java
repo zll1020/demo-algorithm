@@ -3,12 +3,12 @@ package com.example.algorithm.demoalgorithm.list;
 import com.example.algorithm.demoalgorithm.array.MyAbstractList;
 
 /**
- * Description:双向链表
+ * Description:双向循环链表
  * User: zhangll
  * Date: 2020-04-19
  * Time: 17:26
  */
-public class TwoWayLinkedList<E> extends MyAbstractList<E> {
+public class TwoWayCircleLinkedList<E> extends MyAbstractList<E> {
 
     private Node<E> first;
     private Node<E> last;
@@ -42,22 +42,25 @@ public class TwoWayLinkedList<E> extends MyAbstractList<E> {
     public void add(int index, E element) {
         if (index == size){
             Node<E> oldLast = last;
-            last = new Node<>(element,oldLast,null);
+            last = new Node<>(element,oldLast,first);
             if (oldLast == null){
                 // 第一个元素
                 first = last;
+                first.prev = last;
+                last.next = first;
             }else {
                 oldLast.next = last;
+                first.prev = last;
             }
         }else {
             Node<E> current = getNode(index);
             Node<E> prev = current.prev;
             Node<E> newNode = new Node<>(element,current.prev,current);
             current.prev = newNode;
-            if (current.prev == null){
+            prev.next = newNode;
+
+            if (index == 0){
                 first = newNode;
-            }else {
-                prev.next=newNode;
             }
         }
         size ++;
@@ -73,21 +76,28 @@ public class TwoWayLinkedList<E> extends MyAbstractList<E> {
 
     @Override
     public E remove(int index) {
-        Node<E> current = getNode(index);
-        Node<E> prev = current.prev;
-        Node<E> next = current.next;
-
-        if (index == 0){ // prev == null
-            first = first.next;
+        rangeChange(index);
+        Node<E> current = first;
+        if (size == 1){
+            first = null;
+            last = null;
         }else {
+            current = getNode(index);
+            Node<E> prev = current.prev;
+            Node<E> next = current.next;
             prev.next = next;
-        }
-
-        if (index == size -1) { // next == null
-            last = last.prev;
-        }else {
             next.prev = prev;
+
+            // prev 和 next 不会为空
+            if (index == 0){ // fist = current
+                first = next;
+            }
+
+            if (index == size -1){ // last == current
+                last = prev;
+            }
         }
+        size --;
         return current.element;
     }
 
