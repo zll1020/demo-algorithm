@@ -1,5 +1,7 @@
 package com.example.algorithm.demoalgorithm.leetcode.栈;
 
+import java.util.Stack;
+
 /**
  * Description:
  * User: zhangll
@@ -7,6 +9,10 @@ package com.example.algorithm.demoalgorithm.leetcode.栈;
  * Time: 22:29
  */
 public class _150_逆波兰表达式求值 {
+
+    public static void main(String[] args) {
+        System.out.println(evalRPN(new String[]{"2","1","+","3","*"}));
+    }
 
 
     /**
@@ -23,7 +29,27 @@ public class _150_逆波兰表达式求值 {
      * 输出: 9
      * 解释: ((2 + 1) * 3) = 9
      */
-    public int evalRPN(String[] tokens) {
-        return 0;
+    public static int evalRPN(String[] tokens) {
+        Stack<String> stack = new Stack<>();
+        for (int i = 0 ;i<tokens.length;i++){
+            String s = tokens[i];
+            if (s.equals("*") || s.equals("-") || s.equals("+") || s.equals("/")){
+                Integer one = Integer.valueOf(stack.pop());
+                Integer two = Integer.valueOf(stack.pop());
+                if (s.equals("*")){
+                    stack.push(String.valueOf(one * two));
+                }else if (s.equals("/")){
+                    stack.push(String.valueOf(two / one));
+                }else if (s.equals("+")){
+                    stack.push(String.valueOf(two + one));
+                }else if (s.equals("-")){
+                    stack.push(String.valueOf(two - one));
+                }
+            }else {
+                stack.push(s);
+            }
+
+        }
+        return Integer.valueOf(stack.pop());
     }
 }

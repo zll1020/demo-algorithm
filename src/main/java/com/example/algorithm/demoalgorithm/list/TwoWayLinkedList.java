@@ -88,6 +88,7 @@ public class TwoWayLinkedList<E> extends MyAbstractList<E> {
         }else {
             next.prev = prev;
         }
+        size--;
         return current.element;
     }
 
