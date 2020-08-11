@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class MyCircleQueue<E> {
 
+    //队头位置
     private int index;
 
     private int size;
@@ -29,11 +30,19 @@ public class MyCircleQueue<E> {
         return size == 0;
     }
 
+    /**
+     * 入队
+     * @param element
+     */
     public void enQueue(E element){
         elements[(size + index) % elements.length] = element;
         size++;
     }
 
+    /**
+     * 出队
+     * @return
+     */
     public E deQueue(){
         E old = elements[index];
         elements[index] = null;
