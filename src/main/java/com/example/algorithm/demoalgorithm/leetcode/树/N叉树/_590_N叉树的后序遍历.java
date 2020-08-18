@@ -11,6 +11,6 @@ import java.util.List;
 public class _590_N叉树的后序遍历 {
 
     public List<Integer> postorder(Node root) {
-
+        return null;
     }
 }

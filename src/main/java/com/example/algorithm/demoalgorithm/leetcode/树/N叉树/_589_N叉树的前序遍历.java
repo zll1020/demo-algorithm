@@ -11,7 +11,7 @@ import java.util.List;
 public class _589_N叉树的前序遍历 {
 
     public List<Integer> preorder(Node root) {
-
+        return null;
     }
 
 }
