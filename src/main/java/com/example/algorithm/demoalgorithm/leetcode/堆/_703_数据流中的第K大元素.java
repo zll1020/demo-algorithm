@@ -1,5 +1,9 @@
 package com.example.algorithm.demoalgorithm.leetcode.堆;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
+
 /**
  * Description: 构建一个K最小堆
  * User: zhangll
@@ -18,6 +22,8 @@ public class _703_数据流中的第K大元素 {
         kthLargest.add(4);// returns 8
 
     }
+
+
 }
 class KthLargest {
 
@@ -78,6 +84,30 @@ class KthLargest {
 
     }
 }
+
+class Solution {
+    public String frequencySort(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (char chr : s.toCharArray()) {
+            map.put(chr, map.getOrDefault(chr, 0) + 1);
+        }
+
+        PriorityQueue<Map.Entry<Character, Integer>> maxHeap = new PriorityQueue<>(
+                (e1, e2) -> e2.getValue() - e1.getValue());
+
+        maxHeap.addAll(map.entrySet());
+
+        StringBuilder sortedString = new StringBuilder(s.length());
+        while (!maxHeap.isEmpty()) {
+            Map.Entry<Character, Integer> entry = maxHeap.poll();
+            for (int i = 0; i < entry.getValue(); i++){
+                sortedString.append(entry.getKey());
+            }
+        }
+        return sortedString.toString();
+    }
+}
+
 
 /**
  * Your KthLargest object will be instantiated and called as such:

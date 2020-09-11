@@ -1,0 +1,5 @@
+递归 + 记忆化
+状态的定义：opt[n] dp[n],fib[n]
+状态转移方程 opt[n] = best_of(opt[n-1],opt[n-2],...)
+最优子结构
+
